@@ -1,0 +1,8 @@
+{
+  "name": "aviao",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "740b8573"
+}
