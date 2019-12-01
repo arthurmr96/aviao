@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import {Vibration} from '@ionic-native/vibration/ngx';
+import {formatDate} from '@angular/common';
 
 @Component({
     selector: 'app-home',
@@ -100,9 +101,11 @@ export class HomePage {
     }
 
     sendToEmail() {
+        const date = formatDate(this.acao.data, 'DD/MM/YYYY HH:mm', 'pt');
+
         const emailMessage = `
                     <h2>Data</h2>
-                    <p>${this.acao.data.toLocaleString()}</p>
+                    <p>${date}</p>
                     <h2>Responsável</h2>
                     <p>${this.acao.responsavel}</p>
                     <h2>Houve troca de tripulação?</h2>
