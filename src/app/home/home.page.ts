@@ -21,6 +21,7 @@ export class HomePage {
     init() {
         this.acao = {
             data: new Date().toISOString(),
+            num_voo: '',
             troca_tripulacao: false,
             chegada_tripulacao: { time: '00:00:00', timeBegan: null, timeStopped: null, stoppedDuration: null,
                 running: false, started: null},
@@ -55,6 +56,8 @@ export class HomePage {
         const date = this.toDateString(this.acao.data);
 
         const emailMessage = `
+                    <h2>Nº do Voo</h2>
+                    <p>${this.acao.num_voo}</p>
                     <h2>Data</h2>
                     <p>${date}</p>
                     <h2>Responsável</h2>
@@ -86,12 +89,16 @@ export class HomePage {
 `;
         const email = {
             to: 'arthurmr13@hotmail.com',
-            subject: 'Ionic Email - Aviao',
+            subject: `Atendimento do Voo ${this.acao.num_voo} - ${date}`,
             body: emailMessage,
             isHtml: true
         };
 
-        this.emailComposer.open(email);
+        const app = this;
+
+        this.emailComposer.open(email).then(() => {
+            app.init();
+        });
     }
 
     save() {
