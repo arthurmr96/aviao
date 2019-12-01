@@ -101,7 +101,7 @@ export class HomePage {
     }
 
     sendToEmail() {
-        const date = formatDate(this.acao.data, 'DD/MM/YYYY HH:mm', 'pt');
+        const date = formatDate(this.acao.data, 'dd/MM/yyyy HH:mm', 'pt');
 
         const emailMessage = `
                     <h2>Data</h2>
