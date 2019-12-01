@@ -88,7 +88,7 @@ export class HomePage {
                     <p>${this.acao.informacao_adicional}</p>
 `;
         const email = {
-            to: 'arthurmr13@hotmail.com',
+            to: 'ra.gjribeiro@voegol.com.br',
             subject: `Atendimento do Voo ${this.acao.num_voo} - ${date}`,
             body: emailMessage,
             isHtml: true
