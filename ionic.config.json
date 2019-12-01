@@ -1,7 +1,8 @@
 {
   "name": "aviao",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular",
   "id": "740b8573"

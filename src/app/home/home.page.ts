@@ -128,7 +128,7 @@ export class HomePage {
                     <h2>Tripulação assumindo</h2>
                     <p>${this.acao.tripulacao_assumindo.time}</p>
                     <h2>Informações Adicionais</h2>
-                    <p>${this.acao.informacao_adicional.time}</p>
+                    <p>${this.acao.informacao_adicional}</p>
 `;
         const email = {
             to: 'arthurmr13@hotmail.com',
