@@ -8,6 +8,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -20,6 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
     SplashScreen,
     SQLite,
     SQLiteObject,
+    EmailComposer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
