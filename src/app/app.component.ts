@@ -15,7 +15,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private sqlite: SQLite
+    private sqlite: SQLite,
   ) {
     this.initializeApp();
   }
@@ -24,7 +24,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.sqlite.create({
+      /*this.sqlite.create({
         name: 'aviao',
         location: 'default'
       }).then((db: SQLiteObject) => {
@@ -43,6 +43,8 @@ export class AppComponent {
           informacao_adicional text,
           troca_tripulacao integer(1),
           tipo enum('embarque', 'desembarque'),
+          chegada_tripulacao datetime,
+          tripulacao_assumindo datetime,
           created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
           updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         )`);
@@ -55,7 +57,7 @@ export class AppComponent {
           updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         )
         `);
-      });
+      });*/
     });
   }
 }
