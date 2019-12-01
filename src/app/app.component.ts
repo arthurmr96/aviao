@@ -28,7 +28,33 @@ export class AppComponent {
         name: 'aviao',
         location: 'default'
       }).then((db: SQLiteObject) => {
-        db.executeSql('create table operacoes(id integer unsigned auto_increment primary key, name varchar(255))');
+        db.executeSql(`create table if not exists operacoes(
+          id integer unsigned auto_increment primary key,
+          nome varchar(255),
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+          updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )`);
+
+        db.executeSql(`
+        create table if not exists acoes(
+          id integer unsigned auto_increment primary key,
+          data datetime,
+          responsavel varchar(255),
+          informacao_adicional text,
+          troca_tripulacao integer(1),
+          tipo enum('embarque', 'desembarque'),
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+          updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )`);
+
+        db.executeSql(`
+        create table if not exists acoes_operacoes(
+          acoes_id integer unsigned,
+          operacoes_id integer_unsigned,
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+          updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )
+        `);
       });
     });
   }
