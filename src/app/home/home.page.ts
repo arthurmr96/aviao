@@ -21,19 +21,19 @@ export class HomePage {
         this.acao = {
             data: new Date().toISOString(),
             troca_tripulacao: false,
-            chegada_tripulacao: { time: '00:00:000', timeBegan: null, timeStopped: null, stoppedDuration: null,
+            chegada_tripulacao: { time: '00:00:00', timeBegan: null, timeStopped: null, stoppedDuration: null,
                 running: false, started: null},
-            tripulacao_assumindo: { time: '00:00:000', timeBegan: null, timeStopped: null, stoppedDuration: null,
+            tripulacao_assumindo: { time: '00:00:00', timeBegan: null, timeStopped: null, stoppedDuration: null,
                 running: false, started: null},
             responsavel: '',
-            ps: { time: '00:00:000', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
-            ca: { time: '00:00:000', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
-            ld: { time: '00:00:000', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
-            td: { time: '00:00:000', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
-            le: { time: '00:00:000', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
-            te: { time: '00:00:000', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
-            fp: { time: '00:00:000', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
-            pb: { time: '00:00:000', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
+            ps: { time: '00:00:00', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
+            ca: { time: '00:00:00', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
+            ld: { time: '00:00:00', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
+            td: { time: '00:00:00', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
+            le: { time: '00:00:00', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
+            te: { time: '00:00:00', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
+            fp: { time: '00:00:00', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
+            pb: { time: '00:00:00', timeBegan: null, timeStopped: null, stoppedDuration: null, running: false, started: null},
             informacao_adicional: '',
         };
     }
@@ -89,7 +89,6 @@ export class HomePage {
         const hour = timeElapsed.getUTCHours();
         const min = timeElapsed.getUTCMinutes();
         const sec = timeElapsed.getUTCSeconds();
-        const ms = timeElapsed.getUTCMilliseconds();
         this.acao[operacao].time =
             this.zeroPrefix(hour, 2) + ':' +
             this.zeroPrefix(min, 2) + ':' +
@@ -101,35 +100,44 @@ export class HomePage {
     }
 
     sendToEmail() {
-        this.emailComposer.isAvailable().then((available: boolean) =>{
-            if (available) {
-                const emailMessage = `
+        const emailMessage = `
                     <h2>Data</h2>
-                    <p>${this.acao.data}</p>
+                    <p>${this.acao.data.toLocaleString()}</p>
                     <h2>Responsável</h2>
                     <p>${this.acao.responsavel}</p>
                     <h2>Houve troca de tripulação?</h2>
-                    <p>${this.acao.troca_tripulacao}</p>
+                    <p>${this.acao.troca_tripulacao ? 'Sim' : 'Não'}</p>
                     <h2>PS</h2>
+                    <p>${this.acao.ps.time}</p>
                     <h2>CA</h2>
+                    <p>${this.acao.ca.time}</p>
                     <h2>LD</h2>
+                    <p>${this.acao.ld.time}</p>
                     <h2>TD</h2>
+                    <p>${this.acao.td.time}</p>
                     <h2>LE</h2>
+                    <p>${this.acao.le.time}</p>
                     <h2>TE</h2>
+                    <p>${this.acao.te.time}</p>
                     <h2>FP</h2>
+                    <p>${this.acao.fp.time}</p>
                     <h2>PB</h2>
+                    <p>${this.acao.pb.time}</p>
+                    <h2>Chegada da tripulação</h2>
+                    <p>${this.acao.chegada_tripulacao.time}</p>
+                    <h2>Tripulação assumindo</h2>
+                    <p>${this.acao.tripulacao_assumindo.time}</p>
                     <h2>Informações Adicionais</h2>
+                    <p>${this.acao.informacao_adicional.time}</p>
 `;
-                const email = {
-                    to: 'arthurmr13@hotmail.com',
-                    subject: 'Ionic Email - Aviao',
-                    body: emailMessage,
-                    isHtml: true
-                };
+        const email = {
+            to: 'arthurmr13@hotmail.com',
+            subject: 'Ionic Email - Aviao',
+            body: emailMessage,
+            isHtml: true
+        };
 
-                this.emailComposer.open(email);
-            }
-        });
+        this.emailComposer.open(email);
     }
 
     save() {
