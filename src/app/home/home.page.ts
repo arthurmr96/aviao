@@ -39,69 +39,20 @@ export class HomePage {
         };
     }
 
-    start(operacao) {
-        if (this.acao[operacao].running) {
-            return;
-        }
-
-        this.vibration.vibrate([2000, 1000, 1000]);
-
-        if (this.acao[operacao].timeBegan === null) {
-            this.reset(operacao);
-            this.acao[operacao].timeBegan = new Date();
-        }
-        if (this.acao[operacao].timeStopped !== null) {
-            const newStoppedDuration: any = (+new Date() - this.acao[operacao].timeStopped);
-            this.acao[operacao].stoppedDuration = this.acao[operacao].stoppedDuration + newStoppedDuration;
-        }
-        this.acao[operacao].started = setInterval(this.clockRunning.bind(this, operacao), 10);
-        this.acao[operacao].running = true;
-    }
-
-    stop(operacao) {
-        this.vibration.vibrate([1000, 1000, 2000]);
-
-        this.acao[operacao].running = false;
-        this.acao[operacao].timeStopped = new Date();
-        clearInterval(this.acao[operacao].started);
-    }
-
-    reset(operacao) {
-        this.vibration.vibrate([1000, 500, 1000]);
-        this.acao[operacao].running = false;
-        clearInterval(this.acao[operacao].started);
-        this.acao[operacao].stoppedDuration = 0;
-        this.acao[operacao].timeBegan = null;
-        this.acao[operacao].timeStopped = null;
-        this.acao[operacao].time = '00:00:00';
-    }
-
-    zeroPrefix(num, digit) {
-        let zero = '';
-        for (let i = 0; i < digit; i++) {
-            zero += '0';
-        }
-        return (zero + num).slice(-digit);
-    }
-
-    clockRunning(operacao) {
-        const currentTime: any = new Date();
-        const timeElapsed: any = new Date(currentTime - this.acao[operacao].timeBegan - this.acao[operacao].stoppedDuration);
-        const hour = timeElapsed.getUTCHours();
-        const min = timeElapsed.getUTCMinutes();
-        const sec = timeElapsed.getUTCSeconds();
-        this.acao[operacao].time =
-            this.zeroPrefix(hour, 2) + ':' +
-            this.zeroPrefix(min, 2) + ':' +
-            this.zeroPrefix(sec, 2);
+    setDate(operacao) {
+        this.acao[operacao].time = this.toDateString(new Date());
     }
 
     saveIntoDatabase() {
         // TODO: Salvar no banco de dados o registro
     }
 
+    toDateString(date) {
+        return formatDate(date, 'dd/MM/yyyy HH:mm', 'pt');
+    }
+
     sendToEmail() {
-        const date = formatDate(this.acao.data, 'dd/MM/yyyy HH:mm', 'pt');
+        const date = this.toDateString(this.acao.data);
 
         const emailMessage = `
                     <h2>Data</h2>
